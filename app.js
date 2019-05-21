@@ -13,16 +13,15 @@ var app = express();
 
 
 app.use(requestIp.mw());
-const ips = ['127.0.0.1'];
+const ips = ['119.63.130.91'];
 
 const customDetection = req => {
     let ipAddress = req.clientIp;
     console.log(`ipAddress: ${ipAddress}`);
-    console.log(`X-Real-IP: ${req.headers["X-Real-IP"]}`);
     return ipAddress;
 }
 
-app.use(ipfilter(ips, { detectIp: customDetection }));
+app.use(ipfilter(ips, { detectIp: customDetection, mode: 'allow' }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
