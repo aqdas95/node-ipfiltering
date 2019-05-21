@@ -13,15 +13,17 @@ var app = express();
 
 
 app.use(requestIp.mw());
-const ips = ['119.63.130.91'];
+const ips = ['119.63.130.91', '72.255.1.17'];
 
 const customDetection = req => {
     let ipAddress = req.clientIp;
     console.log(`ipAddress: ${ipAddress}`);
+    console.log(`header: ${req.header('Postman-Token')}`)
     return ipAddress;
 }
 
-app.use(ipfilter(ips, { detectIp: customDetection, mode: 'allow' }));
+app.use(ipfilter(ips, { mode: 'allow', detectIp: customDetection }));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
