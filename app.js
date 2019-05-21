@@ -13,10 +13,13 @@ var app = express();
 
 
 app.use(requestIp.mw());
-const ips = ['119.63.130.91', '72.255.1.17'];
+const ips = ['127.0.0.1', '119.63.130.91', '72.255.1.17'];
 
 const customDetection = req => {
-    let ipAddress = req.clientIp;
+    let ipAddress = '127.0.0.1'
+    let mobile = req.header('Postman-Token') ? true : false //We can also add proper checks over here.
+    if (!mobile) //We can also add proper checks over here.
+        ipAddress = req.clientIp;
     console.log(`ipAddress: ${ipAddress}`);
     console.log(`header: ${req.header('Postman-Token')}`)
     return ipAddress;
