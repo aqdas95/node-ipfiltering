@@ -7,6 +7,10 @@
 var app = require('../app');
 var debug = require('debug')('ipfiltering:server');
 var http = require('http');
+var proxiedHttp = require('findhit-proxywrap').proxy(http, {
+  strict: true,
+  overrideRemote: false
+})
 
 /**
  * Get port from environment and store in Express.
@@ -19,7 +23,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = proxiedHttp.createServer(app)
 
 /**
  * Listen on provided port, on all network interfaces.
